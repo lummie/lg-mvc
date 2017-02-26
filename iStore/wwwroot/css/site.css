@@ -3,11 +3,11 @@ body {
     padding-bottom: 20px;
 }
 
-/* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+    padding-top: 20px;
 }
 
 /* Set widths on the form inputs since otherwise they're 100% wide */
@@ -17,22 +17,89 @@ textarea {
     max-width: 280px;
 }
 
-/* Carousel */
-.carousel-caption p {
-    font-size: 20px;
-    line-height: 1.4;
+/* ensure footer in its own block */
+footer {
+    clear:both;
 }
 
-/* Make .svg files in the carousel display properly in older browsers */
-.carousel-inner .item img[src$=".svg"]
-{
-    width: 100%;
+/* Use by the display of the number of products */
+#count {
+    font-size: 4em;
+    margin-right: 0.1em; 
 }
 
-/* Hide/rearrange for smaller screens */
-@media screen and (max-width: 767px) {
-  /* Hide captions */
-  .carousel-caption {
-    display: none
-  }
+/* popup panel for adding a new product */
+#new-product-panel {
+    background-color: white;
+    margin: 1em;
+    padding: 1em;
+    border: 1px solid #AAA;
+    position: absolute;
+    z-index: 1000;
 }
+
+/*  general button url style */
+a.button {
+    margin: 0px auto;
+    position: relative;   
+    padding: 0.4em 0.4em;
+    border: 1px solid #EEE;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;    
+    cursor: pointer;
+    border-radius: 6px 6px 6px 6px;
+    padding: 5px 5px;       
+    }
+
+/* button style when toggled down */
+a.down {
+    background-color: #999;
+    }
+
+/* Image for the add product button */
+.add-image {
+    background-image: url(../images/new.png);
+    background-repeat: no-repeat;
+    background-size: 22px 22px;
+    background-position: 2px 2px;
+    padding-left : 30px !important;
+}
+
+/* A product panel */
+li.product-item {
+    padding: 1em;
+    border-radius: 10px 10px 10px 10px;
+    -moz-border-radius: 10px 10px 10px 10px;
+    -webkit-border-radius: 10px 10px 10px 10px;
+    border: 1px solid #25380f;
+    width: 200px;
+    height: 100px;
+    display: block;
+    margin: 1em 1em; 
+    overflow: hidden;
+    float:left;
+    position: relative;
+}
+
+/* General shadow class that can be re-used. */
+.shadow{
+    -webkit-box-shadow: 4px 4px 20px 0px rgba(192,192,192,1);
+    -moz-box-shadow: 4px 4px 20px 0px rgba(192,192,192,1);
+    box-shadow: 4px 4px 20px 0px rgba(192,192,192,1);    
+}
+
+/* A product panel's name */
+.product-name {
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
+/* A product panel's price */
+.product-price {
+    color: #999;
+    font-size: 2em;
+    text-align: right;
+}
+

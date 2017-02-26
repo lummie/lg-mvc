@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using iStore.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -27,6 +28,8 @@ namespace iStore
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<StoreContext>();            
+            services.Configure<StoreConfig>(Configuration.GetSection("StoreConfig"));
             // Add framework services.
             services.AddMvc();
         }
@@ -54,7 +57,12 @@ namespace iStore
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
-            });
+/*                routes.MapRoute(
+                    name: "api",
+                    template: "{controller=StoreItems}/{action=All}/{id?}");
+*/            });
+
+            InitData.InitialiseStore(app.ApplicationServices);
         }
     }
 }
