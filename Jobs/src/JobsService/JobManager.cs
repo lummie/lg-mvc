@@ -11,19 +11,25 @@ namespace Jobs.Service
         // Matches A or A=>B with whitespace (^[a-zA-Z]\s?=>\s?[a-zA-Z])|(^[a-zA-Z])
         private const string RX_INPUT_PATTERN = @"(?'links'[a-zA-Z]\s?=>\s?[a-zA-Z])|(?'nodes'[a-zA-Z])";
 
+        // string to represent the root node, only used in debug output
         private const string ROOT = "<R>";
 
+        // job list holds the list of the parent nodes in the Directed Graph
         private List<Job> jobList = new List<Job>();
 
+        // a root node for the graph which is used as the starting point for the DFS
         private Job rootJob = new Job(ROOT);
 
-        public bool Debug {get;}
+        // flag for outputting the input, tree and result to the console for debugging
+        private readonly  bool debug;
 
         public JobManager(bool debug = false) {
-            this.Debug = debug;
+            this.debug = debug;
             // add a root item
             jobList.Add(rootJob);
         }
+
+
 
         // Looks for a job with the specified id in the joblist and adds a new one if not found
         private Job FindOrAddJob(string id) {
@@ -68,27 +74,29 @@ namespace Jobs.Service
                 m = m.NextMatch();
             }
 
+
+
+
             // walk the tree and return string
             StringBuilder sb = new StringBuilder();
             Job.Walk(rootJob, (j,l) => {
                 if(j!=rootJob) {
                     sb.Append(j.ID);
                 }
+                return false; // dont quit walking
             });
 
-
-
-            if (Debug) {
+            if (debug) {
+                // output the tree idented
                 Console.WriteLine($"PROCESS:[{joblist}]");
                 Job.Walk(rootJob, (j,l) => {
-                    Console.WriteLine(new string(' ', l*2) + j.ID);
+                    Console.WriteLine(new string('-', l*2) + j.ID); 
+                    return false; // dont quit walking
                 });
                 Console.WriteLine("ANS: " + sb.ToString());
             }
 
-
-
-
+            // return the ordered string
             return sb.ToString();
         }
 

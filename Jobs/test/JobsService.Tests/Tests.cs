@@ -134,13 +134,42 @@ namespace uk.lummie.Tests
             C => C
             ";
             string expected = "ADFCBE";
-            try {
+            try
+            {
                 Assert.Equal(expected, jm.SortJobs(input));
-            } catch (Job.SelfReferenceException) {
-            } catch (Exception) {
+            }
+            catch (Job.SelfReferenceException)
+            {
+            }
+            catch (Exception)
+            {
                 Assert.False(true);
             }
         }
+
+        [Fact]
+        public void TestSimpleCycle()
+        {
+            JobManager jm = new JobManager();
+            string input = @"
+            A
+            B => A
+            A => B
+            ";
+            string expected = "AB";
+            try
+            {
+                Assert.Equal(expected, jm.SortJobs(input));
+            }
+            catch (Job.SelfReferenceException)
+            {
+            }
+            catch (Exception)
+            {
+                Assert.False(true);
+            }
+        }
+
 
         [Fact]
         public void TestDependencyCycle()
@@ -155,9 +184,17 @@ namespace uk.lummie.Tests
             F => B
             ";
             string expected = "ADFCBE";
-            Assert.Equal(expected, jm.SortJobs(input));
+            try
+            {
+                Assert.Equal(expected, jm.SortJobs(input));
+            }
+            catch (Job.SelfReferenceException)
+            {
+            }
+            catch (Exception)
+            {
+                Assert.False(true);
+            }
         }
-
-
     }
 }
